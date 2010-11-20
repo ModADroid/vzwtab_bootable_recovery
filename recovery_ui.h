@@ -74,7 +74,7 @@ int device_wipe_data();
 #define ITEM_NANDROID        5
 #define ITEM_PARTITION       6
 #define ITEM_ADVANCED        7
-
+#define VOODOO_TOGGLE        8
 // Header text to display above the main menu.
 extern char* MENU_HEADERS[];
 

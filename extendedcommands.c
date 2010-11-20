@@ -869,6 +869,40 @@ void show_advanced_menu()
     }
 }
 
+void show_voodoo_menu() {
+  ensure_root_path_mounted("SDCARD:");
+  static char* headers[] = {  "Voodoo Menu",
+                              "",
+                              NULL
+  };
+
+  static char* list[] = { "reboot to download\n",
+			  "voodoo disable",
+                          "voodoo enable",
+                          NULL
+    };
+
+    for (;;)
+    {
+        FILE* f = fopen("/sdcard/Voodoo/disable-lagfix","r");
+        if (f==NULL) {
+          ui_print("\nVoodoo lagfix: enabled\n");
+        } else {
+          ui_print("\nVoodoo lagfix: disabled\n");
+          fclose(f);
+        }
+
+        int chosen_item = get_menu_selection(headers, list, 0);
+        if (chosen_item == GO_BACK)
+            break;
+        switch (chosen_item)
+        {
+          case 0: __reboot(LINUX_REBOOT_MAGIC1, LINUX_REBOOT_MAGIC2, LINUX_REBOOT_CMD_RESTART2, "download");break;
+          case 1: __system("/sbin/busybox touch /sdcard/Voodoo/disable-lagfix");break;
+          case 2: __system("/sbin/busybox rm -rf /sdcard/Voodoo/disable*lagfix*");break;
+        }
+    }
+}
 void write_fstab_root(char *root_path, FILE *file)
 {
     RootInfo *info = get_root_info_for_path(root_path);

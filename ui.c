@@ -159,7 +159,8 @@ static void draw_text_line(int row, const char* t) {
   }
 }
 
-#define MENU_TEXT_COLOR 7, 133, 74, 255
+#define MENU_TEXT_COLOR 150, 0, 0, 255
+//#define MENU_TEXT_COLOR 7, 133, 74, 255
 #define NORMAL_TEXT_COLOR 200, 200, 200, 255
 #define HEADER_TEXT_COLOR NORMAL_TEXT_COLOR
 
