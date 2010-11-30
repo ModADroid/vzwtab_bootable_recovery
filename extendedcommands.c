@@ -757,6 +757,7 @@ void show_advanced_menu()
                             "Wipe Battery Stats",
                             "Report Error",
                             "Key Test",
+                            "Restart adbd",
 #ifndef BOARD_HAS_SMALL_RECOVERY
                             "Partition SD Card",
                             "Fix Permissions",
@@ -815,6 +816,12 @@ void show_advanced_menu()
             }
             case 5:
             {
+                __system("kill $(ps | grep adbd)");
+                __system("/sbin/adbd &");
+                break;
+            }
+            case 6:
+            {
                 static char* ext_sizes[] = { "128M",
                                              "256M",
                                              "512M",
@@ -856,7 +863,7 @@ void show_advanced_menu()
                     ui_print("An error occured while partitioning your SD Card. Please see /tmp/recovery.log for more details.\n");
                 break;
             }
-            case 6:
+            case 7:
             {
                 ensure_root_path_mounted("SYSTEM:");
                 ensure_root_path_mounted("DATA:");
