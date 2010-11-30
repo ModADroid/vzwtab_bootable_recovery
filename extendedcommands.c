@@ -879,8 +879,6 @@ void show_voodoo_menu() {
   static char* list[] = { "reboot to download\n",
 			  "voodoo disable",
                           "voodoo enable",
-                          "system conversion disable",
-                          "system conversion enable",
                           NULL
     };
 
@@ -894,14 +892,6 @@ void show_voodoo_menu() {
           fclose(f);
         }
 
-        FILE* fd = fopen("/sdcard/Voodoo/don-t-convert-system","r");
-        if (fd==NULL) {
-          ui_print("\nSystem conversion: enabled\n");
-        } else {
-          ui_print("\nSystem conversion: disabled\n");
-          fclose(fd);
-        }
-
         int chosen_item = get_menu_selection(headers, list, 0);
         if (chosen_item == GO_BACK)
             break;
@@ -910,8 +900,6 @@ void show_voodoo_menu() {
           case 0: __reboot(LINUX_REBOOT_MAGIC1, LINUX_REBOOT_MAGIC2, LINUX_REBOOT_CMD_RESTART2, "download");break;
           case 1: __system("/sbin/busybox touch /sdcard/Voodoo/disable-lagfix");break;
           case 2: __system("/sbin/busybox rm -rf /sdcard/Voodoo/disable*lagfix*");break;
-          case 3: __system("/sbin/busybox touch /sdcard/Voodoo/don-t-convert-system");break;
-          case 4: __system("/sbin/busybox rm -rf /sdcard/Voodoo/don*t*convert*system");break;
         }
     }
 }
