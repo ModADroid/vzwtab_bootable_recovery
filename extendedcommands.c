@@ -351,7 +351,7 @@ void show_nandroid_restore_menu()
 void show_mount_usb_storage_menu()
 {
     char command[PATH_MAX];
-    sprintf(command, "echo %s > /sys/devices/platform/usb_mass_storage/lun0/file", BOARD_SDCARD_DEVICE_PRIMARY);
+    sprintf(command, "echo %s > /sys/devices/platform/s3c-usbgadget/gadget/lun0/file", BOARD_SDCARD_DEVICE_PRIMARY);
     __system(command);
     static char* headers[] = {  "USB Mass Storage device",
                                 "Leaving this menu unmount",
@@ -369,8 +369,8 @@ void show_mount_usb_storage_menu()
             break;
     }
 
-    __system("echo '' > /sys/devices/platform/usb_mass_storage/lun0/file");
-    __system("echo 0 > /sys/devices/platform/usb_mass_storage/lun0/enable");
+    __system("echo '' > /sys/devices/platform/s3c-usbgadget/gadget/lun0/file");
+    __system("echo 0 > /sys/devices/platform/s3c-usbgadget/gadget/lun0/enable");
 }
 
 int confirm_selection(const char* title, const char* confirm)
