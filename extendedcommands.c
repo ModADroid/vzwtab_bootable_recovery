@@ -760,6 +760,8 @@ void show_advanced_menu()
                             "Restart adbd",
                             "Hide Nandroid Progress",
                             "Show Nandroid Progress",
+                            "Enable Puzzle LockScreen",
+                            "Disable Puzzle LockScreen",
 #ifndef BOARD_HAS_SMALL_RECOVERY
                             "Partition SD Card",
                             "Fix Permissions",
@@ -824,18 +826,31 @@ void show_advanced_menu()
             }
             case 6:
             {
-                  ensure_root_path_mounted("SDCARD:");
+                ensure_root_path_mounted("SDCARD:");
                 __system("/sbin/busybox mkdir -p /sdcard/clockworkmod");
                 __system("/sbin/busybox touch /sdcard/clockworkmod/.hidenandroidprogress");
                 break;
             }
             case 7:
             {
-                  ensure_root_path_mounted("SDCARD:");
-                __system("/sbin/busybox rm /sdcard/clockworkmod/.hidenandroidprogress");
-                break;
+                 ensure_root_path_mounted("SDCARD:");
+                 __system("/sbin/busybox rm /sdcard/clockworkmod/.hidenandroidprogress");
+                 break;
             }
             case 8:
+            {
+                ensure_root_path_mounted("DATA:");
+                __system("/sbin/mkdir -p /data/local");
+                __system("/sbin/busybox touch /data/local/enable_glass_lock");
+                break;
+            }
+            case 9:
+            {
+                ensure_root_path_mounted("DATA:");
+                __system("/sbin/busybox rm /data/local/enable_glass_lock");
+                break;
+            }
+            case 10:
             {
                 static char* ext_sizes[] = { "128M",
                                              "256M",
@@ -878,7 +893,7 @@ void show_advanced_menu()
                     ui_print("An error occured while partitioning your SD Card. Please see /tmp/recovery.log for more details.\n");
                 break;
             }
-            case 9:
+            case 11:
             {
                 ensure_root_path_mounted("SYSTEM:");
                 ensure_root_path_mounted("DATA:");
