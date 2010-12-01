@@ -758,8 +758,8 @@ void show_advanced_menu()
                             "Report Error",
                             "Key Test",
                             "Restart adbd",
-                            "Hide Nandroid Progress Bar",
-                            "Show Nandroid Progress Bar",
+                            "Hide Nandroid Progress",
+                            "Show Nandroid Progress",
 #ifndef BOARD_HAS_SMALL_RECOVERY
                             "Partition SD Card",
                             "Fix Permissions",
