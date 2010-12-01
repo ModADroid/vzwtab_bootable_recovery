@@ -758,6 +758,8 @@ void show_advanced_menu()
                             "Report Error",
                             "Key Test",
                             "Restart adbd",
+                            "Hide Nandroid Progress Bar",
+                            "Show Nandroid Progress Bar",
 #ifndef BOARD_HAS_SMALL_RECOVERY
                             "Partition SD Card",
                             "Fix Permissions",
@@ -822,6 +824,19 @@ void show_advanced_menu()
             }
             case 6:
             {
+                  ensure_root_path_mounted("SDCARD:");
+                __system("/sbin/busybox mkdir -p /sdcard/clockworkmod");
+                __system("/sbin/busybox touch /sdcard/clockworkmod/.hidenandroidprogress");
+                break;
+            }
+            case 7:
+            {
+                  ensure_root_path_mounted("SDCARD:");
+                __system("/sbin/busybox rm /sdcard/clockworkmod/.hidenandroidprogress");
+                break;
+            }
+            case 8:
+            {
                 static char* ext_sizes[] = { "128M",
                                              "256M",
                                              "512M",
@@ -863,7 +878,7 @@ void show_advanced_menu()
                     ui_print("An error occured while partitioning your SD Card. Please see /tmp/recovery.log for more details.\n");
                 break;
             }
-            case 7:
+            case 9:
             {
                 ensure_root_path_mounted("SYSTEM:");
                 ensure_root_path_mounted("DATA:");
