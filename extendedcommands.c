@@ -970,8 +970,8 @@ void show_voodoo_menu() {
         {
           case 0: __system("/voodoo/bin/disable_lagfix");break;
           case 1: __system("/voodoo/bin/enable_lagfix");break;
-          case 2: __system("/voodoo/bin/allow_system_conversion");break;
-          case 3: __system("/voodoo/bin/disallow_system_conversion");break;
+          case 2: __system("/voodoo/bin/unset_system_as_rfs");break;
+          case 3: __system("/voodoo/bin/set_system_as_rfs");break;
           case 4: __system("/voodoo/bin/enable_debug_mode");break;
           case 5: __system("/voodoo/bin/disable_debug_mode");break;
           case 6: __reboot(LINUX_REBOOT_MAGIC1, LINUX_REBOOT_MAGIC2, LINUX_REBOOT_CMD_RESTART2, "download");break;
