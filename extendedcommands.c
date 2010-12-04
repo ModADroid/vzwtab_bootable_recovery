@@ -444,6 +444,9 @@ void show_partition_menu()
     string mounts[MOUNTABLE_COUNT][3] = {
         { "mount /system", "unmount /system", "SYSTEM:" },
         { "mount /data", "unmount /data", "DATA:" },
+#ifdef BOARD_HAS_DATADATA
+        { "mount /dbdata", "umount /dbdata", "DATADATA:" },
+#endif   
         { "mount /cache", "unmount /cache", "CACHE:" },
         { "mount /sdcard", "unmount /sdcard", "SDCARD:" },
         { "mount /sd-ext", "unmount /sd-ext", "SDEXT:" }
@@ -453,6 +456,9 @@ void show_partition_menu()
         { "format boot", "BOOT:" },
         { "format system", "SYSTEM:" },
         { "format data", "DATA:" },
+#ifdef BOARD_HAS_DATADATA
+        { "format dbdata", "DATADATA:" },
+#endif
         { "format cache", "CACHE:" },
     };
 
@@ -758,10 +764,12 @@ void show_advanced_menu()
                             "Report Error",
                             "Key Test",
                             "Restart adbd",
-                            "Hide Nandroid Progress",
-                            "Show Nandroid Progress",
+                            "Enable Nandroid Progress",
+                            "Disable Nandroid Progress",
                             "Enable Puzzle LockScreen",
                             "Disable Puzzle LockScreen",
+                            "Enable Yes/No Confirmation",
+                            "Disable Yes/No Confirmation",
 #ifndef BOARD_HAS_SMALL_RECOVERY
                             "Partition SD Card",
                             "Fix Permissions",
@@ -820,25 +828,29 @@ void show_advanced_menu()
             }
             case 5:
             {
+                ui_print("Restarting adbd daemon\n");
                 __system("kill $(ps | grep adbd)");
                 __system("/sbin/adbd &");
                 break;
             }
             case 6:
             {
+                ui_print("Enabling nandroid backup/restore progress\n");
+                ensure_root_path_mounted("SDCARD:");
+                 __system("/sbin/busybox rm /sdcard/clockworkmod/.hidenandroidprogress");
+                break;
+            }
+            case 7:
+            {
+                ui_print("Disabling nandroid backup/restore progress\n");
                 ensure_root_path_mounted("SDCARD:");
                 __system("/sbin/busybox mkdir -p /sdcard/clockworkmod");
                 __system("/sbin/busybox touch /sdcard/clockworkmod/.hidenandroidprogress");
                 break;
             }
-            case 7:
-            {
-                 ensure_root_path_mounted("SDCARD:");
-                 __system("/sbin/busybox rm /sdcard/clockworkmod/.hidenandroidprogress");
-                 break;
-            }
             case 8:
             {
+                ui_print("Enabling TouchWiz puzzle piece lockscreen\n");
                 ensure_root_path_mounted("DATA:");
                 __system("/sbin/mkdir -p /data/local");
                 __system("/sbin/busybox touch /data/local/enable_glass_lock");
@@ -846,11 +858,27 @@ void show_advanced_menu()
             }
             case 9:
             {
+                ui_print("Disabling TouchWiz puzzle piece lockscreen\n");
                 ensure_root_path_mounted("DATA:");
                 __system("/sbin/busybox rm /data/local/enable_glass_lock");
                 break;
             }
             case 10:
+            {
+                ui_print("Enabling Yes/No confirmation during install/restore\n");
+                ensure_root_path_mounted("SDCARD:");
+                __system("/sbin/busybox rm /sdcard/clockworkmod/.no_confirm");
+                break;
+            }
+            case 11:
+            {
+                ui_print("Disabling Yes/No confirmation during install/restore\n");
+                ensure_root_path_mounted("SDCARD:");
+                __system("/sbin/busybox mkdir -p /sdcard/clockworkmod");
+                __system("/sbin/busybox touch /sdcard/clockworkmod/.no_confirm");
+                break;
+            }
+            case 12:
             {
                 static char* ext_sizes[] = { "128M",
                                              "256M",
@@ -893,7 +921,7 @@ void show_advanced_menu()
                     ui_print("An error occured while partitioning your SD Card. Please see /tmp/recovery.log for more details.\n");
                 break;
             }
-            case 11:
+            case 13:
             {
                 ensure_root_path_mounted("SYSTEM:");
                 ensure_root_path_mounted("DATA:");
