@@ -828,21 +828,21 @@ void show_advanced_menu()
             }
             case 5:
             {
-                ui_print("Restarting adbd daemon\n");
+                ui_print("\nRestarting adbd daemon\n");
                 __system("kill $(ps | grep adbd)");
                 __system("/sbin/adbd &");
                 break;
             }
             case 6:
             {
-                ui_print("Enabling nandroid backup/restore progress\n");
+                ui_print("\nEnabling nandroid backup/restore progress\n");
                 ensure_root_path_mounted("SDCARD:");
                  __system("/sbin/busybox rm /sdcard/clockworkmod/.hidenandroidprogress");
                 break;
             }
             case 7:
             {
-                ui_print("Disabling nandroid backup/restore progress\n");
+                ui_print("\nDisabling nandroid backup/restore progress\n");
                 ensure_root_path_mounted("SDCARD:");
                 __system("/sbin/busybox mkdir -p /sdcard/clockworkmod");
                 __system("/sbin/busybox touch /sdcard/clockworkmod/.hidenandroidprogress");
@@ -850,7 +850,7 @@ void show_advanced_menu()
             }
             case 8:
             {
-                ui_print("Enabling TouchWiz puzzle piece lockscreen\n");
+                ui_print("\nEnabling TouchWiz puzzle piece lockscreen\n");
                 ensure_root_path_mounted("DATA:");
                 __system("/sbin/mkdir -p /data/local");
                 __system("/sbin/busybox touch /data/local/enable_glass_lock");
@@ -858,21 +858,21 @@ void show_advanced_menu()
             }
             case 9:
             {
-                ui_print("Disabling TouchWiz puzzle piece lockscreen\n");
+                ui_print("\nDisabling TouchWiz puzzle piece lockscreen\n");
                 ensure_root_path_mounted("DATA:");
                 __system("/sbin/busybox rm /data/local/enable_glass_lock");
                 break;
             }
             case 10:
             {
-                ui_print("Enabling Yes/No confirmation during install/restore\n");
+                ui_print("\nEnabling Yes/No confirmation during install/restore\n");
                 ensure_root_path_mounted("SDCARD:");
                 __system("/sbin/busybox rm /sdcard/clockworkmod/.no_confirm");
                 break;
             }
             case 11:
             {
-                ui_print("Disabling Yes/No confirmation during install/restore\n");
+                ui_print("\nDisabling Yes/No confirmation during install/restore\n");
                 ensure_root_path_mounted("SDCARD:");
                 __system("/sbin/busybox mkdir -p /sdcard/clockworkmod");
                 __system("/sbin/busybox touch /sdcard/clockworkmod/.no_confirm");
