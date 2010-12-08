@@ -829,8 +829,7 @@ void show_advanced_menu()
             case 5:
             {
                 ui_print("\nRestarting adbd daemon\n");
-                __system("kill $(ps | grep adbd)");
-                __system("/sbin/adbd &");
+                __system("killall adbd");
                 break;
             }
             case 6:
@@ -941,12 +940,12 @@ void show_voodoo_menu() {
                               NULL
   };
 
-  static char* list[] = { "disable Voodoo lagfix",
-                          "enable  Voodoo lagfix",
-                          "allow /system conversion: will allow lagfix",
-                          "disallow: will keep the same filesystem",
-                          "enable debug mode: adb on & root",
-                          "disable debug mode",
+  static char* list[] = { "disable lagfix",
+                          "enable  lagfix		(default)",
+                          "/system lagfix on		(default)",
+                          "/system lagfix off",
+                          "debug on",
+                          "debug off			(default)",
                           "Reboot to Download mode",
                           NULL
     };
@@ -975,9 +974,9 @@ void show_voodoo_menu() {
 	__system("/voodoo/bin/is_lagfix_system_conversion_enabled");
         f = fopen("/voodoo/run/lagfix_system_conversion_enabled","r");
         if (f==NULL) {
-          ui_print("\n allow /system conversion: no\n");
+          ui_print("\n /system lagfix conversion: no\n");
         } else {
-          ui_print("\n allow /system conversion: yes\n");
+          ui_print("\n /system lagfix conversion: yes\n");
           fclose(f);
         }
 
@@ -989,7 +988,7 @@ void show_voodoo_menu() {
           fclose(f);
           ui_print("               debug mode: yes\n");
         }
-          ui_print("\n\n\n\n\n\n\n\n\n\n\n");
+          ui_print("\n\n\n\n\n\n\n\n");
 
        int chosen_item = get_menu_selection(headers, list, 0);
         if (chosen_item == GO_BACK)
