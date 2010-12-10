@@ -941,11 +941,11 @@ void show_voodoo_menu() {
   };
 
   static char* list[] = { "disable lagfix",
-                          "enable  lagfix		(default)",
-                          "/system lagfix on		(default)",
+                          "enable  lagfix               (default)",
+                          "/system lagfix on            (default)",
                           "/system lagfix off",
                           "debug on",
-                          "debug off			(default)",
+                          "debug off                    (default)",
                           "Reboot to Download mode",
                           NULL
     };
