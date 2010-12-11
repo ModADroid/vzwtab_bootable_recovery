@@ -759,6 +759,7 @@ void show_advanced_menu()
     };
 
     static char* list[] = { "Reboot Recovery",
+                            "Reboot Download Mode",
                             "Wipe Dalvik Cache",
                             "Wipe Battery Stats",
                             "Report Error",
@@ -788,6 +789,9 @@ void show_advanced_menu()
                 __reboot(LINUX_REBOOT_MAGIC1, LINUX_REBOOT_MAGIC2, LINUX_REBOOT_CMD_RESTART2, "recovery");
                 break;
             case 1:
+                __reboot(LINUX_REBOOT_MAGIC1, LINUX_REBOOT_MAGIC2, LINUX_REBOOT_CMD_RESTART2, "download");
+                break;
+            case 2:
             {
                 if (0 != ensure_root_path_mounted("DATA:"))
                     break;
@@ -802,16 +806,16 @@ void show_advanced_menu()
                 ui_print("Dalvik Cache wiped.\n");
                 break;
             }
-            case 2:
+            case 3:
             {
                 if (confirm_selection( "Confirm wipe?", "Yes - Wipe Battery Stats"))
                     wipe_battery_stats();
                 break;
             }
-            case 3:
+            case 4:
                 handle_failure(1);
                 break;
-            case 4:
+            case 5:
             {
                 ui_print("Outputting key codes.\n");
                 ui_print("Go back to end debugging.\n");
@@ -826,20 +830,20 @@ void show_advanced_menu()
                 while (action != GO_BACK);
                 break;
             }
-            case 5:
+            case 6:
             {
                 ui_print("\nRestarting adbd daemon\n");
                 __system("killall adbd");
                 break;
             }
-            case 6:
+            case 7:
             {
                 ui_print("\nEnabling nandroid backup/restore progress\n");
                 ensure_root_path_mounted("SDCARD:");
                  __system("/sbin/busybox rm /sdcard/clockworkmod/.hidenandroidprogress");
                 break;
             }
-            case 7:
+            case 8:
             {
                 ui_print("\nDisabling nandroid backup/restore progress\n");
                 ensure_root_path_mounted("SDCARD:");
@@ -847,7 +851,7 @@ void show_advanced_menu()
                 __system("/sbin/busybox touch /sdcard/clockworkmod/.hidenandroidprogress");
                 break;
             }
-            case 8:
+            case 9:
             {
                 ui_print("\nEnabling TouchWiz puzzle piece lockscreen\n");
                 ensure_root_path_mounted("DATA:");
@@ -855,21 +859,21 @@ void show_advanced_menu()
                 __system("/sbin/busybox touch /data/local/enable_glass_lock");
                 break;
             }
-            case 9:
+            case 10:
             {
                 ui_print("\nDisabling TouchWiz puzzle piece lockscreen\n");
                 ensure_root_path_mounted("DATA:");
                 __system("/sbin/busybox rm /data/local/enable_glass_lock");
                 break;
             }
-            case 10:
+            case 11:
             {
                 ui_print("\nEnabling Yes/No confirmation during install/restore\n");
                 ensure_root_path_mounted("SDCARD:");
                 __system("/sbin/busybox rm /sdcard/clockworkmod/.no_confirm");
                 break;
             }
-            case 11:
+            case 12:
             {
                 ui_print("\nDisabling Yes/No confirmation during install/restore\n");
                 ensure_root_path_mounted("SDCARD:");
@@ -877,7 +881,7 @@ void show_advanced_menu()
                 __system("/sbin/busybox touch /sdcard/clockworkmod/.no_confirm");
                 break;
             }
-            case 12:
+            case 13:
             {
                 static char* ext_sizes[] = { "128M",
                                              "256M",
@@ -920,7 +924,7 @@ void show_advanced_menu()
                     ui_print("An error occured while partitioning your SD Card. Please see /tmp/recovery.log for more details.\n");
                 break;
             }
-            case 13:
+            case 14:
             {
                 ensure_root_path_mounted("SYSTEM:");
                 ensure_root_path_mounted("DATA:");
@@ -947,7 +951,6 @@ void show_voodoo_menu() {
                           "debug on",
                           "debug off                    (default)",
                           "Reboot to Download mode",
-                          NULL
     };
 
     for (;;)
@@ -1001,7 +1004,6 @@ void show_voodoo_menu() {
           case 3: __system("/voodoo/bin/set_system_as_rfs");break;
           case 4: __system("/voodoo/bin/enable_debug_mode");break;
           case 5: __system("/voodoo/bin/disable_debug_mode");break;
-          case 6: __reboot(LINUX_REBOOT_MAGIC1, LINUX_REBOOT_MAGIC2, LINUX_REBOOT_CMD_RESTART2, "download");break;
         }
     }
 }
