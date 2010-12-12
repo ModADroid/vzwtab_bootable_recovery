@@ -950,7 +950,7 @@ void show_voodoo_menu() {
                           "/system lagfix off",
                           "debug on",
                           "debug off                    (default)",
-                          "Reboot to Download mode",
+                          NULL
     };
 
     for (;;)
