@@ -30,11 +30,11 @@
 #endif
 
 #ifndef BOARD_SDCARD_DEVICE_PRIMARY
-#define BOARD_SDCARD_DEVICE_PRIMARY "/dev/block/mmcblk0p1"
+#define BOARD_SDCARD_DEVICE_PRIMARY "/dev/block/mmcblk1p1"
 #endif
 
 #ifndef BOARD_SDCARD_DEVICE_SECONDARY
-#define BOARD_SDCARD_DEVICE_SECONDARY "/dev/block/mmcblk0"
+#define BOARD_SDCARD_DEVICE_SECONDARY "/dev/block/mmcblk1"
 #endif
 
 #ifndef BOARD_SDEXT_DEVICE

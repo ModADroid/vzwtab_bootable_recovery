@@ -30,9 +30,9 @@
 #include "recovery_ui.h"
 
 #ifdef KEY_POWER_IS_SELECT_ITEM
-static int gShowBackButton = 1;
-#else
 static int gShowBackButton = 0;
+#else
+static int gShowBackButton = 1;
 #endif
 
 #define MAX_COLS 64
